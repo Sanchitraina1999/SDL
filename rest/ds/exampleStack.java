@@ -1,3 +1,4 @@
+package ds;
 import java.util.Stack;
 
 public class exampleStack {

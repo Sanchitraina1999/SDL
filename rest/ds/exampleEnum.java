@@ -1,5 +1,5 @@
-import java.util.Vector;
-import java.util.Enumeration;
+package ds;
+import java.util.*;
 
 public class exampleEnum {
     public static void main(String[] args){
