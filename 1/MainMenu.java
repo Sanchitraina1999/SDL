@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class MainMenu {
     Scanner input = new Scanner(System.in);
@@ -8,19 +8,22 @@ public class MainMenu {
     }
 
     public void display() {
-        System.out.println(centerString(70, "Post Office Recurring Deposit"));
-        System.out.println();
-        System.out.println("1. Agent Login");
-        System.out.println("2. Depositor Login");
-        System.out.println("3. EXIT");
-        System.out.println("\nChoose one of the above options: ");
-        int choice = input.nextInt();
-        error: {
+        Agent agent = new Agent();
+        try{
+            System.out.println(centerString(70, "Post Office Recurring Deposit"));
+            System.out.println();
+            System.out.println("1. Agent Portal");
+            System.out.println("2. Depositor Portal");
+            System.out.println("3. EXIT");
+            System.out.print("\nChoose one of the above options: ");
+            int choice = input.nextInt();
             switch (choice) {
                 case 1:
-                    // AgentLogin();
+                    agent.AgentLogin();
+                    break;
                 case 2:
                     // DepositorLogin();
+                    break;
                 case 3:
                     try {
                         Thread.sleep(1000);
@@ -34,9 +37,12 @@ public class MainMenu {
                     }
                     System.exit(0);
                 default:
-                    System.out.println("Invalid choice");
-                    break error;
+                    System.out.println("Invalid choice :( Please select a valid choice :)\n");
             }
+        }
+        catch (InputMismatchException e){
+            System.out.println("\n" + "Invalid Character(s). Please retry ");
+            // display();
         }
     }
 }
