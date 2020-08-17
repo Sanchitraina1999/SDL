@@ -2,19 +2,19 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
 
-public class Agent extends MainMenu{
+public class Agent extends MainMenu {
     private int agentId;
     private int agentPin;
     HashMap<Integer, Integer> agentUsers = new HashMap<Integer, Integer>(); // <AgentUsername, AgentPassword>
 
-    Agent(){
-        agentUsers.clear();
-        agentUsers.put(1,1);
+    Agent() {
+        agentUsers.put(1, 1);
     }
 
     public void setAgentId(int agentId) {
         this.agentId = agentId;
     }
+
     public int getAgentId() {
         return agentId;
     }
@@ -27,30 +27,35 @@ public class Agent extends MainMenu{
         return agentPin;
     }
 
-    public void AgentLogin(){
+    public void AgentLogin() {
+        boolean InputMismatchOccurs=false;
         boolean validLogin = false;
-        try{
+        try {
             System.out.println(centerString(70, "Welcome to Agent Portal"));
             System.out.print("Enter your Agent Login ID: ");
-            setAgentId(input.nextInt());
+            int agentId = input.nextInt();
+            setAgentId(agentId);
             System.out.print("Enter your Secret PIN: ");
-            setAgentPin(input.nextInt());
+            int agentPin = input.nextInt();
+            setAgentPin(agentPin);
+        } catch (InputMismatchException e) {
+            System.out.println("\n" + "Invalid Character(s). Please retry ");
+            InputMismatchOccurs=true;
         }
-        catch(InputMismatchException e){
-            System.out.println("\n" + "Invalid Character(s). Please retry \n");
-        }
-
-        for (Entry<Integer, Integer> entry : agentUsers.entrySet()) {
-            if (entry.getKey() == getAgentId() && entry.getValue() == getAgentPin()) {
-                validLogin=true;
-                break;
+        finally{
+            if(!InputMismatchOccurs){
+                for (Entry<Integer, Integer> entry : agentUsers.entrySet()) {
+                    if (entry.getKey() == getAgentId() && entry.getValue() == getAgentPin()) {
+                        validLogin = true;
+                        break;
+                    }
+                }
+                if (validLogin) {
+                    System.out.println("Login Successful.");
+                } else {
+                    System.out.println("\n" + "Invalid Login Details.");
+                }
             }
-        }
-        if(validLogin){
-            System.out.println("Login Successful.");
-        }
-        else{
-            System.out.println("\n" + "Invalid Login Details.");
         }
     }
 }

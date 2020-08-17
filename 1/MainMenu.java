@@ -41,8 +41,7 @@ public class MainMenu {
             }
         }
         catch (InputMismatchException e){
-            System.out.println("\n" + "Invalid Character(s). Please retry ");
-            // display();
+            System.out.println("\n" + "Invalid Character(s). Please retry \n");
         }
     }
 }

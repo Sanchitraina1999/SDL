@@ -30,7 +30,7 @@ public class account {
     public double getSavingsBalance() {
         return savingsBalance;
     }
-    `
+    
     public double calcCheckingWithdraw(double amount) {
         checkingsBalance -= amount;
         System.out.println("\n"+moneyFormat.format(amount)+" withdrawn from Checking Account!");
