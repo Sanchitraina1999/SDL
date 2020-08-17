@@ -29,7 +29,7 @@ public class DepositorOptions extends Depositor {
                 }
                 System.exit(0);
             default:
-                System.out.println("Invalid choice :( Please select a valid choice :)  You are logged out now\n");
+                System.out.println("Invalid choice :( Please select a valid choice :)\n");
         }
     }
 }
