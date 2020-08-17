@@ -1,61 +1,71 @@
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Map.Entry;
 
 public class Agent extends MainMenu {
-    private int agentId;
-    private int agentPin;
-    HashMap<Integer, Integer> agentUsers = new HashMap<Integer, Integer>(); // <AgentUsername, AgentPassword>
+    public static String Id;
+    public static String Pin;
+    public static HashMap<String, String> agents = new HashMap<String, String>(); // <AgentUsername, AgentPassword>
 
-    Agent() {
-        agentUsers.put(1, 1);
+    public static void addAgent(String id, String pin) {
+        agents.put(id, pin);
     }
 
-    public void setAgentId(int agentId) {
-        this.agentId = agentId;
+    public static void setId(String id) {
+        Id = id;
     }
 
-    public int getAgentId() {
-        return agentId;
+    public static String getId() {
+        return Id;
     }
 
-    public void setAgentPin(int agentPin) {
-        this.agentPin = agentPin;
+    public static void setPin(String pin) {
+        Pin = pin;
     }
 
-    public int getAgentPin() {
-        return agentPin;
+    public static String getPin() {
+        return Pin;
     }
 
-    public void AgentLogin() {
-        boolean InputMismatchOccurs=false;
-        boolean validLogin = false;
-        try {
-            System.out.println(centerString(70, "Welcome to Agent Portal"));
-            System.out.print("Enter your Agent Login ID: ");
-            int agentId = input.nextInt();
-            setAgentId(agentId);
-            System.out.print("Enter your Secret PIN: ");
-            int agentPin = input.nextInt();
-            setAgentPin(agentPin);
-        } catch (InputMismatchException e) {
-            System.out.println("\n" + "Invalid Character(s). Please retry ");
-            InputMismatchOccurs=true;
+    public static void AgentLogin() {
+        if (agents.size() == 0) {
+            System.out.println("\nNo Agents found!. Register as a new Agent here ");
+            System.out.print("Set your Agent Login ID: ");
+            String id = input.nextLine();
+            System.out.print("Set your Secret PIN: ");
+            String pin = input.nextLine();
+            addAgent(id, pin);
         }
-        finally{
-            if(!InputMismatchOccurs){
-                for (Entry<Integer, Integer> entry : agentUsers.entrySet()) {
-                    if (entry.getKey() == getAgentId() && entry.getValue() == getAgentPin()) {
-                        validLogin = true;
-                        break;
-                    }
-                }
-                if (validLogin) {
-                    System.out.println("Login Successful.");
-                } else {
-                    System.out.println("\n" + "Invalid Login Details.");
-                }
+        boolean validLogin = false;
+
+        System.out.println(centerString(70, "Welcome to Agent Portal"));
+        System.out.print("Enter your Agent Login ID: ");
+        String id = input.nextLine();
+        setId(id);
+        System.out.print("Enter your Secret PIN: ");
+        String pin = input.nextLine();
+        setPin(pin);
+
+        for (Entry<String, String> entry : agents.entrySet()) {
+            if (entry.getKey().equals(getId()) && entry.getValue().equals(getPin())) {
+                validLogin = true;
+                break;
             }
         }
+        if (validLogin) {
+            System.out.println(centerString(70, "*****Logged in as Agent*****\n\n"));
+            AgentOptions options = new AgentOptions();
+            options.display();
+        } else {
+            System.out.println("\n" + "Invalid Login Details.");
+        }
+
+    }
+
+    public void ListDepositors() {
+        System.out.println("Display List of Depositors here\n");
+    }
+
+    public void AddAccount() {
+        System.out.println("Add Account here\n");
     }
 }
