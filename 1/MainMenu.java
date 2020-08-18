@@ -8,6 +8,7 @@ public class MainMenu extends Main {
     }
 
     public void display() {
+        System.out.println();
         System.out.println(centerString(70, "Post Office Recurring Deposit"));
         System.out.println();
         System.out.println("1. Agent Portal");
@@ -23,19 +24,23 @@ public class MainMenu extends Main {
                 Depositor.DepositorLogin();
                 break;
             case "3":
-                try {
-                    Thread.sleep(1000);
-                    System.out.print("Exiting in 3...");
-                    Thread.sleep(1000);
-                    System.out.print("2...");
-                    Thread.sleep(1000);
-                    System.out.println("1");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.exit(0);
+                Exit();
             default:
                 System.out.println("Invalid choice :( Please select a valid choice :).\n");
         }
+    }
+
+    public void Exit() {
+        try {
+            Thread.sleep(1000);
+            System.out.print("Exiting in 3...");
+            Thread.sleep(1000);
+            System.out.print("2...");
+            Thread.sleep(1000);
+            System.out.println("1");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 }

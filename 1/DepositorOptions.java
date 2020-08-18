@@ -1,10 +1,10 @@
 public class DepositorOptions extends Depositor {
     public void display() {
-        System.out.println("1. List of all my Accounts");
-        System.out.println("2. Add my new Account");
-        System.out.println("3. Delete my Account");
-        System.out.println("4. Delete my Profile");
-        System.out.println("5. Logout");
+        System.out.println("\n1. List of all my PORD Accounts");
+        System.out.println("2. Add my new PORD Account");
+        System.out.println("3. Delete my PORD Account");
+        System.out.println("4. Delete my Depositor Profile");
+        System.out.println("5. Logout Depositor");
         System.out.println("6. EXIT");
         System.out.print("Choose one of the above:");
         String choice = input.nextLine();
