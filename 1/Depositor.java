@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 public class Depositor extends MainMenu {
     public static String Id;
     public static String Pin;
-    public static HashMap<String, String> depositors = new HashMap<String, String>(); // <DepositorUsername,
+    public static HashMap<String, String> depositors = new HashMap<String, String>(); // <DepositorUsername,DepositorPassword>
 
     public static void addDepositor(String id, String pin) {
         depositors.put(id, pin);
@@ -25,7 +25,7 @@ public class Depositor extends MainMenu {
     public static String getDepositorPin() {
         return Pin;
     }
-
+    
     public static void DepositorLogin() {
         int nsb = bs.nextSetBit(0);
         if (nsb == 1) {
@@ -90,4 +90,11 @@ public class Depositor extends MainMenu {
     public void DeleteAccount() {
         System.out.println("Delete Account here\n");
     }
-}
+
+    public void DeleteDepositer(){
+        System.out.println("Delete Depositer here\n");
+    }
+    public void Logout(){
+        System.out.println("Logout Depositer here\n");
+    }
+}                                                                                                                   

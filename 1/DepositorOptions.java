@@ -3,7 +3,9 @@ public class DepositorOptions extends Depositor {
         System.out.println("1. List of all my Accounts");
         System.out.println("2. Add my new Account");
         System.out.println("3. Delete my Account");
-        System.out.println("4. EXIT");
+        System.out.println("4. Delete my Profile");
+        System.out.println("5. Logout");
+        System.out.println("6. EXIT");
         System.out.print("Choose one of the above:");
         String choice = input.nextLine();
         switch (choice) {
@@ -17,19 +19,28 @@ public class DepositorOptions extends Depositor {
                 DeleteAccount();
                 break;
             case "4":
-                try {
-                    Thread.sleep(1000);
-                    System.out.print("Exiting in 3...");
-                    Thread.sleep(1000);
-                    System.out.print("2...");
-                    Thread.sleep(1000);
-                    System.out.println("1");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.exit(0);
+                DeleteDepositer();
+                break;
+            case "5":
+                Logout();
+                break;
+            case "6":
+                Exit();
             default:
                 System.out.println("Invalid choice :( Please select a valid choice :)\n");
         }
+    }
+    public void Exit(){
+        try {
+            Thread.sleep(1000);
+            System.out.print("Exiting in 3...");
+            Thread.sleep(1000);
+            System.out.print("2...");
+            Thread.sleep(1000);
+            System.out.println("1");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 }
