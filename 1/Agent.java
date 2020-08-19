@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class Agent extends MainMenu {
@@ -73,7 +73,15 @@ public class Agent extends MainMenu {
     }
 
     public void ListDepositors() {
-        System.out.println("Display List of Depositors here\n");
+        System.out.println("\n");
+        Vector<Depositor.Details> list = Depositor.DepositorsDetails;
+        if (list.isEmpty()) {
+            System.out.println("No Depositors found!\n");
+            return;
+        }
+        System.out.println("KYC\t\tName\t\tMobile Number\n");
+        list.forEach((n) -> System.out.println( n.KYC + "\t" + n.Name + "\t" + n.MobileNumber));
+        System.out.println("\n");
     }
 
     public void AddAccount() {
