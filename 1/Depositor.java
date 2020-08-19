@@ -128,7 +128,18 @@ public class Depositor extends MainMenu {
         System.out.println("Display List of Accounts of here\n");
     }
 
-    public void AddAccount() {
+    public static void AddAccountWithKYC(String kycProvided) {
+        Long randomAccNo = RandomNumberGen.getNumericString();
+        while (AccountNumbers.contains(randomAccNo)) {
+            randomAccNo = RandomNumberGen.getNumericString();
+        }
+        String currentKyc = kycProvided;
+        Vector<Integer> copied = KYCtoAccounts.get(currentKyc);
+        copied.add(randomAccNo.intValue());
+        KYCtoAccounts.put(currentKyc, copied);
+    }
+
+    public static void AddAccount() {
         Long randomAccNo = RandomNumberGen.getNumericString();
         while (AccountNumbers.contains(randomAccNo)) {
             randomAccNo = RandomNumberGen.getNumericString();
@@ -173,5 +184,26 @@ public class Depositor extends MainMenu {
         System.out.print("Set your Secret PIN: ");
         String pin = input.nextLine();
         addDepositor(randomkyc, name, mobile_number, id, pin);
+    }
+
+    public static String AddDepositorWithReturnKYC(){
+        String randomkyc = RandomStringGen.getAlphaNumericString();
+        while (KYCs.contains(randomkyc)) {
+            randomkyc = RandomStringGen.getAlphaNumericString();
+        }
+        System.out.print("\nEnter Depositor's Name: ");
+        String name = input.nextLine();
+        System.out.print("Enter Depositor's Mobile Number: ");
+        Long mobile_number = input.nextLong();
+
+        // Skip the newline after inputing Int. Case of "Enter"
+        input.nextLine();
+
+        System.out.print("Set your Depositor Login ID: ");
+        String id = input.nextLine();
+        System.out.print("Set your Secret PIN: ");
+        String pin = input.nextLine();
+        addDepositor(randomkyc, name, mobile_number, id, pin);
+        return randomkyc;
     }
 }

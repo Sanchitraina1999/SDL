@@ -79,13 +79,28 @@ public class Agent extends MainMenu {
             System.out.println("No Depositors found!\n");
             return;
         }
+
         System.out.println("KYC\t\tName\t\tMobile Number\n");
-        list.forEach((n) -> System.out.println( n.KYC + "\t" + n.Name + "\t" + n.MobileNumber));
+        list.forEach((n) -> System.out.println( n.KYC + "\t" + n.Name + "\t\t" + n.MobileNumber));
         System.out.println("\n");
     }
 
     public void AddAccount() {
-        System.out.println("Add Account here\n");
+        // System.out.println("Add Account here\n");
+        System.out.print("Do you want to Add Account for Existing Depositor(y/n): ");
+        char choice = input.next().charAt(0);
+        input.nextLine();
+        if(choice == 'y'){
+            String kycProvided;
+            System.out.print("Provide KYC of Existing User: ");
+            kycProvided = input.nextLine();
+            Depositor.AddAccountWithKYC(kycProvided);
+        }
+        else{
+            System.out.println("REGISTER new Depositor first: ");
+            String kycProvided = Depositor.AddDepositorWithReturnKYC();
+            Depositor.AddAccountWithKYC(kycProvided);
+        }
     }
 
     public void AddDepositor() {
