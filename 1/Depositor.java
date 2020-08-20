@@ -13,6 +13,7 @@ public class Depositor extends MainMenu {
     public static String currentDepositorKyc;
 
     // Related to Login
+    public static Set<String> depID = new HashSet<String>(); //for unique DepositorUsername
     public static HashMap<String, String> depositors = new HashMap<String, String>(); // <DepositorUsername,DepositorPassword>
     public static HashMap<String, String> usernameToKyc = new HashMap<String, String>(); // <DepositorUsername, Kyc>
 
@@ -181,6 +182,12 @@ public class Depositor extends MainMenu {
 
         System.out.print("Set your Depositor Login ID: ");
         String id = input.nextLine();
+        while(depID.contains(id)){
+            System.out.println("This Login ID already exists. Try again: ");
+            System.out.print("Set your Depositor Login ID: ");
+            id = input.nextLine();
+        }
+        depID.add(id);
         System.out.print("Set your Secret PIN: ");
         String pin = input.nextLine();
         addDepositor(randomkyc, name, mobile_number, id, pin);
@@ -201,6 +208,12 @@ public class Depositor extends MainMenu {
 
         System.out.print("Set your Depositor Login ID: ");
         String id = input.nextLine();
+        while(depID.contains(id)){
+            System.out.println("This Login ID already exists. Try again: ");
+            System.out.print("Set your Depositor Login ID: ");
+            id = input.nextLine();
+        }
+        depID.add(id);
         System.out.print("Set your Secret PIN: ");
         String pin = input.nextLine();
         addDepositor(randomkyc, name, mobile_number, id, pin);

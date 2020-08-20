@@ -1,6 +1,6 @@
 public class AgentOptions extends Agent {
     public void display() {
-        System.out.println("\n1. List all Depositors' PORD details");
+        System.out.println("\n1. List all Depositor's details");
         System.out.println("2. Add new Depositor");
         System.out.println("3. Add new Account");
         System.out.println("4. Logout Agent");
@@ -12,7 +12,7 @@ public class AgentOptions extends Agent {
                 ListDepositors();
                 break;
             case "2":
-                AddDepositor();
+                AddDepositor(); //userName creation
                 break;
             case "3":
                 AddAccount();

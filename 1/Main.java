@@ -13,10 +13,10 @@ public class Main {
             int nsb = bs.nextSetBit(0);
             switch (nsb) {
                 case 1:
-                    System.out.println("Currently Logged in as AGENT");
+                    System.out.println("\nCurrently Logged in as AGENT");
                     break;
                 case 2:
-                    System.out.println("Currently Logged in as DEPOSITOR");
+                    System.out.println("\nCurrently Logged in as DEPOSITOR");
                     break;
             }
             mainMenu.display();

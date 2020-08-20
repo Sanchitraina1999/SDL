@@ -40,7 +40,7 @@ public class Agent extends MainMenu {
             options.display();
         } else {
             if (agents.size() == 0) {
-                addAgent("admin", "admin");
+                addAgent("1", "1"); //agentLogin
             }
             boolean validLogin = false;
             System.out.println();
