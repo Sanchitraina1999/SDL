@@ -20,22 +20,19 @@ public class Depositor extends MainMenu {
     public static String Id;
     public static String Pin;
     public static String currentDepositorKyc;
-
     // Related to Login
     public static Set<String> depID = new HashSet<String>(); //for unique DepositorUsername
     public static HashMap<String, String> depositors = new HashMap<String, String>(); // <DepositorUsername,DepositorPassword>
     public static HashMap<String, String> usernameToKyc = new HashMap<String, String>(); // <DepositorUsername, Kyc>
-
     // Depositor and Details
     public static Set<String> KYCs = new HashSet<String>(); // for unique KYCs
     public static Vector<Details> DepositorsDetails = new Vector<Details>(); // Depositor Details {KYC, Name, MobileNumber}
-
     // Depositors and their Accounts
     public static Set<Long> AccountNumbers = new HashSet<Long>(); // for unique Account Numbers
     public static HashMap<String, Vector<Integer>> KYCtoAccounts = new HashMap<String, Vector<Integer>>(); // <KYC Number,Vector of Account Numbers>
     public static HashMap<Integer, Vector<Integer>> AccNumberToAccDetails = new HashMap<Integer, Vector<Integer>>(); // <Account Number,Vector of Details>
     public static Vector<PordDetails> allAccountDetails = new Vector<PordDetails>(); //all PORD account details
-
+    
     public static void addDepositor(String randomkyc, String name, Long mobile_number, String id, String pin) {
         Details details = new Details();
         details.KYC = randomkyc;
@@ -131,18 +128,18 @@ public class Depositor extends MainMenu {
     public void ListAccounts() {
         // System.out.println("Display List of Accounts of here\n");
         String currentKyc = getCurrentDepositorKyc();
-        System.out.println("Current KYC is: "+ currentKyc);
-        //Now Display only accounts having KYC = currentKyc
-        Vector<Integer> acNumbers= KYCtoAccounts.get(currentKyc);
-        if(acNumbers.size()==0){
+        System.out.println("Current KYC is: " + currentKyc);
+        // Now Display only accounts having KYC = currentKyc
+        Vector<Integer> acNumbers = KYCtoAccounts.get(currentKyc);
+        if (acNumbers.size() == 0) {
             System.out.println("\tYou have no accounts opened as of now\n");
-        }
-        else{
+        } else {
             Vector<Depositor.PordDetails> list = Depositor.allAccountDetails;
-            System.out.println("A/c Number \t Date of Opening \t PrincipalAmount \t Date of Maturity \t Maturity Amount\n");
-            for(int i=0;i<acNumbers.size();i++){
-                for(int j=0;j<list.size();j++){
-                    if(Integer.compare(acNumbers.get(i), list.get(j).AccountNumber)==0){
+            System.out.println(
+                    "A/c Number \t Date of Opening \t PrincipalAmount \t Date of Maturity \t Maturity Amount\n");
+            for (int i = 0; i < acNumbers.size(); i++) {
+                for (int j = 0; j < list.size(); j++) {
+                    if (Integer.compare(acNumbers.get(i), list.get(j).AccountNumber) == 0) {
                         System.out.print(list.get(j).AccountNumber + "\t\t\t");
                         System.out.print(list.get(j).DateOfOpening + "\t\t\t");
                         System.out.print(list.get(j).PrincipalAmount + "\t\t\t");
@@ -163,14 +160,15 @@ public class Depositor extends MainMenu {
         }
         String currentKyc = kycProvided;
         P_Details.AccountNumber = randomAccNo.intValue();
-        System.out.print("Enter Date of Opening(YYYY-MM--DD) for your Account Number-  "+ randomAccNo +": ");
+        System.out.print("Enter Date of Opening(YYYY-MM--DD) for your Account Number-  " + randomAccNo + ": ");
         P_Details.DateOfOpening = input.nextLine();
         System.out.print("Enter Date of Maturity(YYYY-MM--DD) for your Account: ");
         P_Details.DateOfMaturity = input.nextLine();
         System.out.print("Enter Principal Amount: ");
         P_Details.PrincipalAmount = input.nextLong();
         input.nextLine();
-        P_Details.MaturityAmount = P_Details.PrincipalAmount + (P_Details.PrincipalAmount*P_Details.RateOfInterest*5)/100 ;
+        P_Details.MaturityAmount = P_Details.PrincipalAmount
+                + (P_Details.PrincipalAmount * P_Details.RateOfInterest * 5) / 100;
         Vector<Integer> copied = KYCtoAccounts.get(currentKyc);
         copied.add(randomAccNo.intValue());
         KYCtoAccounts.put(currentKyc, copied);
@@ -185,14 +183,15 @@ public class Depositor extends MainMenu {
         }
         String currentKyc = getCurrentDepositorKyc();
         P_Details.AccountNumber = randomAccNo.intValue();
-        System.out.print("Enter Date of Opening(YYYY-MM--DD) for your Account Number-  "+ randomAccNo +": ");
+        System.out.print("Enter Date of Opening(YYYY-MM--DD) for your Account Number-  " + randomAccNo + ": ");
         P_Details.DateOfOpening = input.nextLine();
         System.out.print("Enter Date of Maturity(YYYY-MM--DD) for your Account: ");
         P_Details.DateOfMaturity = input.nextLine();
         System.out.print("Enter Principal Amount: ");
         P_Details.PrincipalAmount = input.nextLong();
         input.nextLine();
-        P_Details.MaturityAmount = P_Details.PrincipalAmount + (P_Details.PrincipalAmount*P_Details.RateOfInterest*5)/100 ;
+        P_Details.MaturityAmount = P_Details.PrincipalAmount
+                + (P_Details.PrincipalAmount * P_Details.RateOfInterest * 5) / 100;
         Vector<Integer> copied = KYCtoAccounts.get(currentKyc);
         copied.add(randomAccNo.intValue());
         KYCtoAccounts.put(currentKyc, copied);
@@ -230,7 +229,7 @@ public class Depositor extends MainMenu {
 
         System.out.print("Set your Depositor Login ID: ");
         String id = input.nextLine();
-        while(depID.contains(id)){
+        while (depID.contains(id)) {
             System.out.println("This Login ID already exists. Try again: ");
             System.out.print("Set your Depositor Login ID: ");
             id = input.nextLine();
@@ -241,7 +240,7 @@ public class Depositor extends MainMenu {
         addDepositor(randomkyc, name, mobile_number, id, pin);
     }
 
-    public static String AddDepositorWithReturnKYC(){
+    public static String AddDepositorWithReturnKYC() {
         String randomkyc = RandomStringGen.getAlphaNumericString();
         while (KYCs.contains(randomkyc)) {
             randomkyc = RandomStringGen.getAlphaNumericString();
@@ -256,7 +255,7 @@ public class Depositor extends MainMenu {
 
         System.out.print("Set your Depositor Login ID: ");
         String id = input.nextLine();
-        while(depID.contains(id)){
+        while (depID.contains(id)) {
             System.out.println("This Login ID already exists. Try again: ");
             System.out.print("Set your Depositor Login ID: ");
             id = input.nextLine();
