@@ -27,7 +27,11 @@ public class Main {
 /*
  * 
  * DS used -
- * 
- * BISET HashMap< > Set< > Vector< >
+ *
+ * BISET
+ * HashMap
+ * Set
+ * Vector
+ * List
  * 
  */
