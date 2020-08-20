@@ -94,7 +94,12 @@ public class Agent extends MainMenu {
             String kycProvided;
             System.out.print("Provide KYC of Existing User: ");
             kycProvided = input.nextLine();
-            Depositor.AddAccountWithKYC(kycProvided);
+            if(Depositor.KYCs.contains(kycProvided)){
+                Depositor.AddAccountWithKYC(kycProvided);
+            }
+            else{
+                System.out.println("\n\t\tNo Such KYC Exists\n");
+            }
         }
         else{
             System.out.println("REGISTER new Depositor first: ");

@@ -12,7 +12,7 @@ public class AgentOptions extends Agent {
                 ListDepositors();
                 break;
             case "2":
-                AddDepositor(); //userName creation
+                AddDepositor();
                 break;
             case "3":
                 AddAccount();
