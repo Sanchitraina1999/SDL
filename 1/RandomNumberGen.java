@@ -9,7 +9,8 @@ public class RandomNumberGen {
             index = (int) (NumericString.length() * Math.random());
             sb.append(NumericString.charAt(index));
         }
-        return Long.parseLong(sb.toString());
+        Long acNumber = Math.abs(Long.parseLong(sb.toString()));
+        return acNumber;
     }
 }
 

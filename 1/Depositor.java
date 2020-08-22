@@ -128,7 +128,6 @@ public class Depositor extends MainMenu {
     public void ListAccounts() {
         // System.out.println("Display List of Accounts of here\n");
         String currentKyc = getCurrentDepositorKyc();
-        System.out.println("Current KYC is: " + currentKyc);
         // Now Display only accounts having KYC = currentKyc
         Vector<Integer> acNumbers = KYCtoAccounts.get(currentKyc);
         if (acNumbers.size() == 0) {
