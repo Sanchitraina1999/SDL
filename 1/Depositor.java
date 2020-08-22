@@ -33,6 +33,15 @@ public class Depositor extends MainMenu {
     public static HashMap<Integer, Vector<Integer>> AccNumberToAccDetails = new HashMap<Integer, Vector<Integer>>(); // <Account Number,Vector of Details>
     public static Vector<PordDetails> allAccountDetails = new Vector<PordDetails>(); //all PORD account details
     
+    //Things to be done for removing of depositors' a/c-
+    // check if a/c present for this depositor
+    //     remove a/c number from AccountNumbers set
+    //     rem from hashmap KYCtoAccounts   <key - kycNumber>
+    //     rem from hashmap AccNumberToAccDetails <key-a/c Number>
+    //     rem from vector allAccountDetails
+    // else-
+    //     no such a/c of you!
+
     public static void addDepositor(String randomkyc, String name, Long mobile_number, String id, String pin) {
         Details details = new Details();
         details.KYC = randomkyc;
