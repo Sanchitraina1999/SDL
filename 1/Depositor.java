@@ -9,7 +9,7 @@ public class Depositor extends MainMenu {
     }
 
     public static class PordDetails{
-        public Integer AccountNumber;
+        public Integer AccountNumber; 
         public String DateOfOpening;
         public String DateOfMaturity;
         public Long RateOfInterest = 8L;
@@ -32,15 +32,71 @@ public class Depositor extends MainMenu {
     public static HashMap<String, Vector<Integer>> KYCtoAccounts = new HashMap<String, Vector<Integer>>(); // <KYC Number,Vector of Account Numbers>
     public static HashMap<Integer, Vector<Integer>> AccNumberToAccDetails = new HashMap<Integer, Vector<Integer>>(); // <Account Number,Vector of Details>
     public static Vector<PordDetails> allAccountDetails = new Vector<PordDetails>(); //all PORD account details
-    
-    //Things to be done for removing of depositors' a/c-
-    // check if a/c present for this depositor
-    //     remove a/c number from AccountNumbers set
-    //     rem from hashmap KYCtoAccounts   <key - kycNumber>
-    //     rem from hashmap AccNumberToAccDetails <key-a/c Number>
-    //     rem from vector allAccountDetails
-    // else-
-    //     no such a/c of you!
+
+    public void DeleteAccount() {
+        // System.out.println("Delete Account here\n");
+        String currentKyc = getCurrentDepositorKyc();
+        Vector<Integer> acNumbers = KYCtoAccounts.get(currentKyc);
+        if (acNumbers.size() == 0) {
+            System.out.println("\tYou have no accounts opened as of now \n");
+        } else {
+            Vector<Depositor.PordDetails> list = Depositor.allAccountDetails;
+            System.out.println("A/c Number \t Date of Opening \t PrincipalAmount \t Date of Maturity \t Maturity Amount\n");
+            for (int i = 0; i < acNumbers.size(); i++) {
+                for (int j = 0; j < list.size(); j++) {
+                    if (Integer.compare(acNumbers.get(i), list.get(j).AccountNumber) == 0) {
+                        System.out.print(list.get(j).AccountNumber + "\t\t\t");
+                        System.out.print(list.get(j).DateOfOpening + "\t\t\t");
+                        System.out.print(list.get(j).PrincipalAmount + "\t\t\t");
+                        System.out.print(list.get(j).DateOfMaturity + "\t\t\t");
+                        System.out.print(list.get(j).MaturityAmount +"\n");
+                    }
+                }
+            }
+            System.out.print("\n\nEnter an Account Number you want to delete: ");
+            Long acn = input.nextLong();
+            input.nextLine();
+            Boolean acPresent = false;
+            for (int i = 0; i < acNumbers.size(); i++) {
+                if(Long.compare(acNumbers.get(i),acn)==0){
+                    acPresent = true;
+                    break;
+                }
+            }
+            if(!acPresent){
+                System.out.println("No such Account Number exists for you");
+            }
+            else{
+                AccountNumbers.remove(acn);
+
+                Vector<Integer> v = KYCtoAccounts.get(currentKyc);
+                int index=0;
+                for(int i=0; i<v.size(); i++){
+                    if(Long.compare(v.get(i),acn)==0){
+                        index=i;
+                        break;
+                    }
+                }
+                KYCtoAccounts.get(currentKyc).remove(index);
+
+                AccNumberToAccDetails.remove(Math.toIntExact(acn));
+
+                for(int i=0;i<list.size();i++){
+                    if( Long.compare(list.get(i).AccountNumber,acn)==0){
+                        index=i;
+                        break;
+                    }
+                }
+
+                Depositor.allAccountDetails.remove(index);
+
+                System.out.println("ACCOUNT Details-\n");
+                ListAccounts();
+
+            }
+        }
+    }
+
 
     public static void addDepositor(String randomkyc, String name, Long mobile_number, String id, String pin) {
         Details details = new Details();
@@ -204,14 +260,6 @@ public class Depositor extends MainMenu {
         copied.add(randomAccNo.intValue());
         KYCtoAccounts.put(currentKyc, copied);
         allAccountDetails.add(P_Details);
-    }
-
-    public void DeleteAccount() {
-        System.out.println("Delete Account here\n");
-    }
-
-    public void DeleteDepositer() {
-        System.out.println("Delete Depositer here\n");
     }
 
     public void Logout() {
