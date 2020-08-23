@@ -208,7 +208,7 @@ public class Depositor extends MainMenu {
                         System.out.print(list.get(j).DateOfOpening + "\t\t\t");
                         System.out.print(list.get(j).PrincipalAmount + "\t\t\t");
                         System.out.print(list.get(j).DateOfMaturity + "\t\t\t");
-                        System.out.print(list.get(j).MaturityAmount);
+                        System.out.print(list.get(j).MaturityAmount + "\n");
                     }
                 }
             }
