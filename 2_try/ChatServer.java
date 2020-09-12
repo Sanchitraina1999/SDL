@@ -4,33 +4,31 @@ import java.net.*;
 public class ChatServer extends Chat{
     public static void cs() {
         String sentenceFromClient;
-        String filename = "clientName.txt"; 
         String sentence;
         try {
             ServerSocket serverSocket = new ServerSocket(6066);
             System.out.println("ServerSocket awaiting connections...");
             Socket connectionSocket = serverSocket.accept();
-            System.out.println("Connection with " + connectionSocket.getLocalPort() + " established");
+            System.out.println("Connection with " + connectionSocket.getLocalPort() + " established. You can reply here");
+
 
             BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));
             BufferedReader fromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream outClient = new DataOutputStream(connectionSocket.getOutputStream());
 
-            FileInputStream file = new FileInputStream(filename); 
-            ObjectInputStream in = new ObjectInputStream(file); 
-            
-            Client obj = null;
-            obj = (Client)in.readObject(); 
-            in.close(); 
-            file.close();
+            InputStream is = connectionSocket.getInputStream();
+            ObjectInputStream in = new ObjectInputStream(is);
+            Client obj = (Client)in.readObject();
 
-            while(true){
+            do{
                 // System.out.println("[AGENT]: ");
                 sentenceFromClient = fromClient.readLine();
                 System.out.println("["+  obj.personName +"]:" + sentenceFromClient);
                 sentence = fromUser.readLine();
                 outClient.writeBytes(sentence + '\n');
-            }
+            }while(!sentence.equals("bye"));
+
+            connectionSocket.close();
 
         } catch (IOException e1) {
             e1.printStackTrace();

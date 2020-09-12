@@ -7,28 +7,27 @@ public class ChatClient extends Chat{
     public static void cc() {
         String sentence;
         String sentenceFromServer;
-        String filename = "clientName.txt"; 
+        Client c;
         Scanner input = new Scanner(System.in);
 
-        Socket clientSocket;
         try {
 
             System.out.print("Enter your name : ");
+            String name = input.nextLine();
 
-            Client c = new Client();
-            c.personName = input.nextLine();
-            FileOutputStream file = new FileOutputStream(filename); 
-            ObjectOutputStream out = new ObjectOutputStream(file); 
-            out.writeObject(c);
-            out.close(); 
-            file.close();
-
-            clientSocket = new Socket("localhost", 6066);
+            Socket clientSocket = new Socket("localhost", 6066);
             System.out.println("Connected to Server. Start Chatting with AGENT:");
+
+            c = new Client();
+            c.personName = name;
 
             BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
             DataOutputStream outToServer =new DataOutputStream(clientSocket.getOutputStream());
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+            OutputStream o = clientSocket.getOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(o); 
+            out.writeObject(c);
 
             while(true)
             {
