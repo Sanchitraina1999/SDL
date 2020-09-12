@@ -1,12 +1,6 @@
 import java.io.*;
 import java.net.*;
 
-/**
- * This thread handles connection for each connected client, so the server
- * can handle multiple clients at the same time.
- *
- * @author www.codejava.net
- */
 public class UserThread extends Thread {
 	private Socket socket;
 	private ChatServer server;
@@ -54,9 +48,6 @@ public class UserThread extends Thread {
 		}
 	}
 
-	/**
-	 * Sends a list of online users to the newly connected user.
-	 */
 	void printUsers() {
 		if (server.hasUsers()) {
 			writer.println("Connected users: " + server.getUserNames());
@@ -65,9 +56,6 @@ public class UserThread extends Thread {
 		}
 	}
 
-	/**
-	 * Sends a message to the client.
-	 */
 	void sendMessage(String message) {
 		writer.println(message);
 	}

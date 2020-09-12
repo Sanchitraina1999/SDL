@@ -17,13 +17,11 @@ public class ChatClient {
 			System.out.println("Connected to the chat server");
 			new ReadThread(socket, this).start();
 			new WriteThread(socket, this).start();
-
 		} catch (UnknownHostException ex) {
 			System.out.println("Server not found: " + ex.getMessage());
 		} catch (IOException ex) {
 			System.out.println("I/O Error: " + ex.getMessage());
 		}
-
 	}
 
 	void setUserName(String userName) {
