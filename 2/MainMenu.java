@@ -27,11 +27,6 @@ public class MainMenu extends Main {
                 break;
             case "3":
                 Chat.chatwindow();
-                try {
-                    Thread.sleep(10000*1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 break;
             case "4":
                 Exit();

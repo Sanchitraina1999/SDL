@@ -1,67 +1,39 @@
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
-public class ChatServer {
-	private int port;
-	private Set<String> userNames = new HashSet<>();
-	private Set<UserThread> userThreads = new HashSet<>();
+public class ChatServer extends Chat{
+    public static void cs() {
+        String sentenceFromClient;
+        String sentence;
+        try {
+            ServerSocket serverSocket = new ServerSocket(6066);
+            System.out.println("ServerSocket awaiting connections...");
+            Socket connectionSocket = serverSocket.accept();
+            System.out.println("Connection with " + connectionSocket.getLocalPort() + " established. You can reply here");
 
-	public ChatServer(int port) {
-		this.port = port;
-	}
 
-	public void execute() {
-		try (ServerSocket serverSocket = new ServerSocket(port)) {
+            BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader fromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
+            DataOutputStream outClient = new DataOutputStream(connectionSocket.getOutputStream());
 
-			System.out.println("Chat Server is listening on port " + port);
+            ObjectInputStream in = new ObjectInputStream(connectionSocket.getInputStream());
+    
+            Client obj = (Client)in.readObject(); 
 
-			while (true) {
-				Socket socket = serverSocket.accept();
-				System.out.println("New user connected");
-
-				UserThread newUser = new UserThread(socket, this);
-				userThreads.add(newUser);
-				newUser.start();
-
-			}
-
-		} catch (IOException ex) {
-			System.out.println("Error in the server: " + ex.getMessage());
-			ex.printStackTrace();
-		}
-	}
-
-	public static void cs() {
-		int port = 3001;
-		ChatServer server = new ChatServer(port);
-		server.execute();
-	}
-	void broadcast(String message, UserThread excludeUser) {
-		for (UserThread aUser : userThreads) {
-			if (aUser != excludeUser) {
-				aUser.sendMessage(message);
-			}
-		}
-	}
-
-	void addUserName(String userName) {
-		userNames.add(userName);
-	}
-
-	void removeUser(String userName, UserThread aUser) {
-		boolean removed = userNames.remove(userName);
-		if (removed) {
-			userThreads.remove(aUser);
-			System.out.println("The user " + userName + " quitted");
-		}
-	}
-
-	Set<String> getUserNames() {
-		return this.userNames;
-	}
-
-	boolean hasUsers() {
-		return !this.userNames.isEmpty();
-	}
+            do{
+                // System.out.println("[AGENT]: ");
+                sentenceFromClient = fromClient.readLine();
+                System.out.println("["+  obj.personName +"]:" + sentenceFromClient);
+                sentence = fromUser.readLine();
+                outClient.writeBytes(sentence + '\n');
+            }while(!sentence.equals("bye"));
+            connectionSocket.close();
+            serverSocket.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        catch (ClassNotFoundException e2) {
+            e2.printStackTrace();
+        }
+    }
 }
