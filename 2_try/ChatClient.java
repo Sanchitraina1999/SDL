@@ -24,19 +24,20 @@ public class ChatClient extends Chat{
             BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
             DataOutputStream outToServer =new DataOutputStream(clientSocket.getOutputStream());
             BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
-            OutputStream o = clientSocket.getOutputStream();
-            ObjectOutputStream out = new ObjectOutputStream(o); 
+ 
+            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream()); 
             out.writeObject(c);
 
-            while(true)
+            do
             {
                 // System.out.println("["+c.personName+"]: ");
                 sentence = inFromUser.readLine();
                 outToServer.writeBytes(sentence + '\n');
                 sentenceFromServer = inFromServer.readLine();
                 System.out.println("[AGENT]: " +sentenceFromServer);
-            }
+            }while(sentenceFromServer!="bye\n");
+            input.close();
+            clientSocket.close();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {

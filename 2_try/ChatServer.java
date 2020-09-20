@@ -16,9 +16,9 @@ public class ChatServer extends Chat{
             BufferedReader fromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream outClient = new DataOutputStream(connectionSocket.getOutputStream());
 
-            InputStream is = connectionSocket.getInputStream();
-            ObjectInputStream in = new ObjectInputStream(is);
-            Client obj = (Client)in.readObject();
+            ObjectInputStream in = new ObjectInputStream(connectionSocket.getInputStream());
+    
+            Client obj = (Client)in.readObject(); 
 
             do{
                 // System.out.println("[AGENT]: ");
@@ -27,7 +27,7 @@ public class ChatServer extends Chat{
                 sentence = fromUser.readLine();
                 outClient.writeBytes(sentence + '\n');
             }while(!sentence.equals("bye"));
-
+            serverSocket.close();
             connectionSocket.close();
 
         } catch (IOException e1) {
