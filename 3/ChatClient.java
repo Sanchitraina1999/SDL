@@ -15,9 +15,7 @@ public class ChatClient {
 	public void execute() {
 		try {
 			Socket socket = new Socket(hostname, port);
-
 			System.out.println("Connected to the chat server");
-
 			new ReadThread(socket, this).start();
 			new WriteThread(socket, this).start();
 
@@ -26,7 +24,6 @@ public class ChatClient {
 		} catch (IOException ex) {
 			System.out.println("I/O Error: " + ex.getMessage());
 		}
-
 	}
 
 	void setUserName(String userName) {
