@@ -1,49 +1,46 @@
-import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.io.*;
 
-public class ChatClient extends Chat{
+public class ChatClient {
+	private String hostname;
+	private int port;
+	private String userName;
 
-    public static void cc() {
-        String sentence;
-        String sentenceFromServer;
-        Client c;
-        Scanner input = new Scanner(System.in);
+	public ChatClient(String hostname, int port) {
+		this.hostname = hostname;
+		this.port = port;
+	}
 
-        try {
+	public void execute() {
+		try {
+			Socket socket = new Socket(hostname, port);
 
-            System.out.print("Enter your name : ");
-            String name = input.nextLine();
+			System.out.println("Connected to the chat server");
 
-            Socket clientSocket = new Socket("localhost", 6066);
-            System.out.println("Connected to Server. Start Chatting with AGENT:");
+			new ReadThread(socket, this).start();
+			new WriteThread(socket, this).start();
 
-            c = new Client();
-            c.personName = name;
+		} catch (UnknownHostException ex) {
+			System.out.println("Server not found: " + ex.getMessage());
+		} catch (IOException ex) {
+			System.out.println("I/O Error: " + ex.getMessage());
+		}
 
-            BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-            DataOutputStream outToServer =new DataOutputStream(clientSocket.getOutputStream());
-            BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
- 
-            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream()); 
-            out.writeObject(c);
+	}
 
-            while (true)
-            {
-                // System.out.println("["+c.personName+"]: ");
-                sentence = inFromUser.readLine();
-                outToServer.writeBytes(sentence + '\n');
-                sentenceFromServer = inFromServer.readLine();
-                System.out.println("[AGENT]: " + sentenceFromServer);
-                if(sentenceFromServer.equals("bye")){
-                    clientSocket.close();
-                    break;
-                }
-            }
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	String getUserName() {
+		return this.userName;
+	}
+
+	public static void cc() {
+		String hostname = "localhost";
+		int port = 3000;
+		ChatClient client = new ChatClient(hostname, port);
+		client.execute();
+	}
 }

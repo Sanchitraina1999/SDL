@@ -1,3 +1,0 @@
-Develope an Application by using JDBC, Multithreading,
-concurrency, synchronous and asynchronous callbacks,
-ThreadPools using ExecutorService.
