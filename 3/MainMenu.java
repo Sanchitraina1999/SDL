@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 public class MainMenu extends Main {
@@ -8,7 +9,7 @@ public class MainMenu extends Main {
         return String.format("%-" + width + "s", String.format("%" + (s.length() + (width - s.length()) / 2) + "s", s));
     }
 
-    public void display() throws IOException {
+    public void display() throws IOException, ClassNotFoundException, SQLException {
         System.out.println();
         System.out.println(centerString(70, "Post Office Recurring Deposit"));
         System.out.println();
@@ -17,7 +18,7 @@ public class MainMenu extends Main {
         System.out.println("3. Chat Portal");
         System.out.println("4. EXIT");
         System.out.print("\nChoose one of the above options: ");
-        String choice = input.nextLine();
+        String choice = input.next();
         switch (choice) {
             case "1":
                 Agent.AgentLogin();

@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -33,7 +34,7 @@ public class Depositor extends MainMenu {
     public static HashMap<Integer, Vector<Integer>> AccNumberToAccDetails = new HashMap<Integer, Vector<Integer>>(); // <Account Number,Vector of Details>
     public static Vector<PordDetails> allAccountDetails = new Vector<PordDetails>(); //all PORD account details
 
-    public void DeleteAccount() {
+    public void DeleteAccount() throws SQLException, ClassNotFoundException {
         // System.out.println("Delete Account here\n");
         String currentKyc = getCurrentDepositorKyc();
         Vector<Integer> acNumbers = KYCtoAccounts.get(currentKyc);
@@ -55,7 +56,6 @@ public class Depositor extends MainMenu {
             }
             System.out.print("\n\nEnter an Account Number you want to delete: ");
             Long acn = input.nextLong();
-            input.nextLine();
             Boolean acPresent = false;
             for (int i = 0; i < acNumbers.size(); i++) {
                 if(Long.compare(acNumbers.get(i),acn)==0){
@@ -89,9 +89,43 @@ public class Depositor extends MainMenu {
                 }
 
                 Depositor.allAccountDetails.remove(index);
-
                 System.out.println("ACCOUNT Details-\n");
                 ListAccounts();
+
+                String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
+                String DB_URL = "jdbc:mysql://localhost/";
+                String USER = "root";
+                String PASS = "root";
+                Connection conn = null;
+                Statement stmt = null;
+                String sql;
+                try{
+                    Class.forName(JDBC_DRIVER);
+                    
+                    System.out.println("Connecting to MYSQL...");
+
+                    conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                    stmt = conn.createStatement();
+                    
+                    String dbname = "sdl_assignment_3";
+                    
+                    sql="USE "+dbname;
+                    stmt.execute(sql);
+                    
+            /*TABLE UPDATIONS*/
+                    sql = "UPDATE "+
+                        "depositors_accounts "+
+                        "SET "+
+                        "number_of_accounts = number_of_accounts - 1 "+
+                        "WHERE KYC='"+currentKyc+"';";
+                    stmt.execute(sql);
+                    System.out.println("UPDATED DEPOSITOR's accounts ...");
+                }
+                finally{
+                    stmt.close();
+                    conn.close();
+                }
+
 
             }
         }
@@ -138,7 +172,7 @@ public class Depositor extends MainMenu {
         currentDepositorKyc = kyc;
     }
 
-    public static void DepositorLogin() {
+    public static void DepositorLogin() throws ClassNotFoundException, SQLException {
         int nsb = bs.nextSetBit(0);
         if (nsb == 1) {
             System.out.println("You were logged in as AGENT. Now logging out AGENT...");
@@ -160,11 +194,11 @@ public class Depositor extends MainMenu {
                 System.out.println(centerString(70, "Welcome to Depositor Portal"));
                 System.out.println();
                 System.out.print("Enter your Depositor Login ID: ");
-                String depositorId = input.nextLine();
+                String depositorId = input.next();
                 setDepositorId(depositorId);
 
                 System.out.print("Enter your Secret PIN: ");
-                String depositorPin = input.nextLine();
+                String depositorPin = input.next();
                 setDepositorPin(depositorPin);
 
                 for (Entry<String, String> entry : depositors.entrySet()) {
@@ -216,7 +250,7 @@ public class Depositor extends MainMenu {
         }
     }
 
-    public static void AddAccountWithKYC(String kycProvided) {
+    public static void AddAccountWithKYC(String kycProvided) throws ClassNotFoundException, SQLException {
         PordDetails P_Details = new PordDetails();
         Long randomAccNo = RandomNumberGen.getNumericString();
         while (AccountNumbers.contains(randomAccNo)) {
@@ -225,21 +259,57 @@ public class Depositor extends MainMenu {
         String currentKyc = kycProvided;
         P_Details.AccountNumber = randomAccNo.intValue();
         System.out.print("Enter Date of Opening(YYYY-MM--DD) for your Account Number-  " + randomAccNo + ": ");
-        P_Details.DateOfOpening = input.nextLine();
+        P_Details.DateOfOpening = input.next();
         System.out.print("Enter Date of Maturity(YYYY-MM--DD) for your Account: ");
-        P_Details.DateOfMaturity = input.nextLine();
+        P_Details.DateOfMaturity = input.next();
         System.out.print("Enter Principal Amount: ");
         P_Details.PrincipalAmount = input.nextLong();
-        input.nextLine();
         P_Details.MaturityAmount = P_Details.PrincipalAmount
                 + (P_Details.PrincipalAmount * P_Details.RateOfInterest * 5) / 100;
         Vector<Integer> copied = KYCtoAccounts.get(currentKyc);
         copied.add(randomAccNo.intValue());
         KYCtoAccounts.put(currentKyc, copied);
         allAccountDetails.add(P_Details);
+
+        
+        
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
+        String DB_URL = "jdbc:mysql://localhost/";
+        String USER = "root";
+        String PASS = "root";
+        Connection conn = null;
+        Statement stmt = null;
+        String sql;
+        try{
+            Class.forName(JDBC_DRIVER);
+            
+            System.out.println("Connecting to MYSQL...");
+
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            
+            String dbname = "sdl_assignment_3";
+            
+            sql="USE "+dbname;
+            stmt.execute(sql);
+            
+    /*TABLE UPDATIONS*/
+            sql = "UPDATE "+
+                "depositors_accounts "+
+                "SET "+
+                "number_of_accounts = number_of_accounts + 1 "+
+                "WHERE KYC='"+kycProvided+"';";
+            stmt.execute(sql);
+            System.out.println("UPDATED DEPOSITOR's accounts ...");
+        }
+        finally{
+            stmt.close();
+            conn.close();
+        }
+
     }
 
-    public static void AddAccount() {
+    public static void AddAccount() throws SQLException, ClassNotFoundException {
         PordDetails P_Details = new PordDetails();
         Long randomAccNo = RandomNumberGen.getNumericString();
         while (AccountNumbers.contains(randomAccNo)) {
@@ -248,18 +318,53 @@ public class Depositor extends MainMenu {
         String currentKyc = getCurrentDepositorKyc();
         P_Details.AccountNumber = randomAccNo.intValue();
         System.out.print("Enter Date of Opening(YYYY-MM--DD) for your Account Number-  " + randomAccNo + ": ");
-        P_Details.DateOfOpening = input.nextLine();
+        P_Details.DateOfOpening = input.next();
         System.out.print("Enter Date of Maturity(YYYY-MM--DD) for your Account: ");
-        P_Details.DateOfMaturity = input.nextLine();
+        P_Details.DateOfMaturity = input.next();
         System.out.print("Enter Principal Amount: ");
         P_Details.PrincipalAmount = input.nextLong();
-        input.nextLine();
         P_Details.MaturityAmount = P_Details.PrincipalAmount
                 + (P_Details.PrincipalAmount * P_Details.RateOfInterest * 5) / 100;
         Vector<Integer> copied = KYCtoAccounts.get(currentKyc);
         copied.add(randomAccNo.intValue());
         KYCtoAccounts.put(currentKyc, copied);
         allAccountDetails.add(P_Details);
+
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
+        String DB_URL = "jdbc:mysql://localhost/";
+        String USER = "root";
+        String PASS = "root";
+        Connection conn = null;
+        Statement stmt = null;
+        String sql;
+        try{
+            Class.forName(JDBC_DRIVER);
+            
+            System.out.println("Connecting to MYSQL...");
+
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            
+            String dbname = "sdl_assignment_3";
+            
+            sql="USE "+dbname;
+            stmt.execute(sql);
+            
+    /*TABLE UPDATIONS*/
+            sql = "UPDATE "+
+                "depositors_accounts "+
+                "SET "+
+                "number_of_accounts = number_of_accounts + 1 "+
+                "WHERE KYC='"+currentKyc+"';";
+            stmt.execute(sql);
+            System.out.println("UPDATED DEPOSITOR's accounts ...");
+        }
+        finally{
+            stmt.close();
+            conn.close();
+        }
+
+
     }
 
     public void Logout() {
@@ -270,56 +375,124 @@ public class Depositor extends MainMenu {
         System.out.print("\nDepositor Logged Out!\n");
     }
 
-    public static void RegisterNewDepositor() {
+    public static void RegisterNewDepositor() throws ClassNotFoundException, SQLException {
         String randomkyc = RandomStringGen.getAlphaNumericString();
         while (KYCs.contains(randomkyc)) {
             randomkyc = RandomStringGen.getAlphaNumericString();
         }
         System.out.print("\nEnter Depositor's Name: ");
-        String name = input.nextLine();
+        String name = input.next();
         System.out.print("Enter Depositor's Mobile Number: ");
         Long mobile_number = input.nextLong();
 
-        // Skip the newline after inputing Int. Case of "Enter"
-        input.nextLine();
-
         System.out.print("Set your Depositor Login ID: ");
-        String id = input.nextLine();
+        String id = input.next();
         while (depID.contains(id)) {
             System.out.println("This Login ID already exists. Try again: ");
             System.out.print("Set your Depositor Login ID: ");
-            id = input.nextLine();
+            id = input.next();
         }
         depID.add(id);
         System.out.print("Set your Secret PIN: ");
-        String pin = input.nextLine();
+        String pin = input.next();
         addDepositor(randomkyc, name, mobile_number, id, pin);
+
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
+        String DB_URL = "jdbc:mysql://localhost/";
+        String USER = "root";
+        String PASS = "root";
+        Connection conn = null;
+        Statement stmt = null;
+        String sql;
+        try{
+            Class.forName(JDBC_DRIVER);
+            
+            System.out.println("Connecting to MYSQL...");
+
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            
+            String dbname = "sdl_assignment_3";
+            
+            sql="USE "+dbname;
+            stmt.execute(sql);
+            
+    /*TABLE CREATIONS*/
+            
+            sql = "INSERT INTO "+
+                "depositors_accounts"+
+                "(KYC,dep_name) "+
+                "VALUES"+
+                "('"+randomkyc+"','"+name+"');";
+            stmt.execute(sql);
+            System.out.println("ADDED DEPOSITOR TO TABLE depositors_accounts ...");
+
+        }
+        finally{
+            stmt.close();
+            conn.close();
+        }
+
     }
 
-    public static String AddDepositorWithReturnKYC() {
+    public static String AddDepositorWithReturnKYC() throws ClassNotFoundException, SQLException {
         String randomkyc = RandomStringGen.getAlphaNumericString();
         while (KYCs.contains(randomkyc)) {
             randomkyc = RandomStringGen.getAlphaNumericString();
         }
         System.out.print("\nEnter Depositor's Name: ");
-        String name = input.nextLine();
+        String name = input.next();
         System.out.print("Enter Depositor's Mobile Number: ");
         Long mobile_number = input.nextLong();
 
-        // Skip the newline after inputing Int. Case of "Enter"
-        input.nextLine();
-
         System.out.print("Set your Depositor Login ID: ");
-        String id = input.nextLine();
+        String id = input.next();
         while (depID.contains(id)) {
             System.out.println("This Login ID already exists. Try again: ");
             System.out.print("Set your Depositor Login ID: ");
-            id = input.nextLine();
+            id = input.next();
         }
         depID.add(id);
         System.out.print("Set your Secret PIN: ");
-        String pin = input.nextLine();
+        String pin = input.next();
         addDepositor(randomkyc, name, mobile_number, id, pin);
+
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
+        String DB_URL = "jdbc:mysql://localhost/";
+        String USER = "root";
+        String PASS = "root";
+        Connection conn = null;
+        Statement stmt = null;
+        String sql;
+        try{
+            Class.forName(JDBC_DRIVER);
+            
+            System.out.println("Connecting to MYSQL...");
+
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            
+            String dbname = "sdl_assignment_3";
+            
+            sql="USE "+dbname;
+            stmt.execute(sql);
+            
+    /*TABLE CREATIONS*/
+            
+            sql = "INSERT INTO "+
+                "depositors_accounts"+
+                "(KYC,dep_name) "+
+                "VALUES"+
+                "('"+randomkyc+"','"+name+"');";
+            stmt.execute(sql);
+            System.out.println("ADDED DEPOSITOR TO TABLE depositors_accounts ...");
+
+        }
+        finally{
+            stmt.close();
+            conn.close();
+        }
+
         return randomkyc;
     }
 }

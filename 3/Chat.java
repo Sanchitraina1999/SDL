@@ -14,7 +14,7 @@ public class Chat extends MainMenu {
         System.out.println("2. Chat as Depositor");
         System.out.println("3. EXIT");
         System.out.print("\nChoose one of the above options: ");
-        String choice = input.nextLine();
+        String choice = input.next();
         switch (choice) {
             case "1":
                 ChatServer.cs();
@@ -32,5 +32,5 @@ public class Chat extends MainMenu {
             default:
                 System.out.println("Invalid choice :( Please select a valid choice :).\n");
         }
-    }    
+    }   
 }
