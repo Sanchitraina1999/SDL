@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/imsotired/Desktop/TE/sdl/3/**/*.jar"
+    ],
+    "java.dependency.packagePresentation": "flat"
+}

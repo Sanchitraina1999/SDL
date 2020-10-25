@@ -41,8 +41,6 @@ public class Main {
 
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();
-            
-            
             String dbname = "sdl_assignment_3";
             
     /*DATABASE CREATION*/
