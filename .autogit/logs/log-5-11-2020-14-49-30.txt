@@ -1,0 +1,112 @@
+-------------------- Auto-Git Log --------------------
+		Sat Dec 05 2020 14:49:30 GMT+0530 (India Standard Time)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* 31201_sdl_04/.gitignore
+* 31201_sdl_04/31201_sdl_04.pdf
+* 31201_sdl_04/AdmissionPortalGUI/.classpath
+* 31201_sdl_04/AdmissionPortalGUI/.project
+* 31201_sdl_04/AdmissionPortalGUI/.settings/org.eclipse.jdt.core.prefs
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/12.jpg
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/Login2.png
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/User5.png
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/back5.png
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/home2.jpg
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/index.png
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/login.png
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/pp4.png
+* 31201_sdl_04/AdmissionPortalGUI/ProjectImages/pwd3.png
+* 31201_sdl_04/AdmissionPortalGUI/src/Admin/AdminLogin.java
+* 31201_sdl_04/AdmissionPortalGUI/src/Admin/AdminSignIn.java
+* 31201_sdl_04/AdmissionPortalGUI/src/Admin/MeritList.java
+* 31201_sdl_04/AdmissionPortalGUI/src/Admin/Pair.java
+* 31201_sdl_04/AdmissionPortalGUI/src/Admin/ServerClass.java
+* 31201_sdl_04/AdmissionPortalGUI/src/Admin/ViewResult.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/CollegeLoginPageDesc.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/CollegeMainLogin.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/CollegeSignUp.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/CollegeSignUpPage_2.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/CollegeViewResult.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/Pair.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/StudentLogin.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/StudentLoinColleges.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/StudentMainLogin.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/StudentSignUpPage.java
+* 31201_sdl_04/AdmissionPortalGUI/src/clients/ViewMeritList.java
+* 31201_sdl_04/AdmissionPortalGUI/src/connection/ConnectionClass.java
+* CollegeAdmissionsPortal/.classpath
+* CollegeAdmissionsPortal/.project
+* CollegeAdmissionsPortal/.settings/org.eclipse.jdt.core.prefs
+* CollegeAdmissionsPortal/src/CollegeInfo.java
+* CollegeAdmissionsPortal/src/Pair.java
+* CollegeAdmissionsPortal/src/clients/CollegeInfo.java
+* CollegeAdmissionsPortal/src/clients/CollegeLogin.java
+* CollegeAdmissionsPortal/src/clients/CollegePage.java
+* CollegeAdmissionsPortal/src/clients/LoginMainPage.java
+* CollegeAdmissionsPortal/src/clients/Pair.java
+* CollegeAdmissionsPortal/src/clients/StudentInfo.java
+* CollegeAdmissionsPortal/src/clients/StudentLogin.java
+* CollegeAdmissionsPortal/src/clients/StudentPage.java
+* CollegeAdmissionsPortal/src/connection/ConnectionClass.java
+* CollegeAdmissionsPortal/src/jdbcTest/connection.java
+* CollegeAdmissionsPortal/src/jdbcTest/testingClass.java
+* CollegeAdmissionsPortal/src/server/Admin.java
+* CollegeAdmissionsPortal/src/server/ServerClass.java
+* TrackMe/.project
+* TrackMe/.settings/org.eclipse.buildship.core.prefs
+* TrackMe/app/.classpath
+* TrackMe/app/.project
+* TrackMe/app/.settings/org.eclipse.buildship.core.prefs
+* assignment6/.project
+* assignment6/.settings/org.eclipse.buildship.core.prefs
+* assignment6/app/.classpath
+* assignment6/app/.project
+* assignment6/app/.settings/org.eclipse.buildship.core.prefs
+
+
+Deleted files:
+* 3/.vscode/settings.json
+* 3/Agent.java
+* 3/AgentOptions.java
+* 3/Chat.java
+* 3/ChatClient.java
+* 3/ChatServer.java
+* 3/Depositor.java
+* 3/DepositorOptions.java
+* 3/Main.java
+* 3/MainMenu.java
+* 3/RandomNumberGen.java
+* 3/RandomStringGen.java
+* 3/ReadThread.java
+* 3/UserThread.java
+* 3/WriteThread.java
+* ass22sept/client.java
+* ass22sept/server.java
+
+
+Renamed files:
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
+* [object Object]
