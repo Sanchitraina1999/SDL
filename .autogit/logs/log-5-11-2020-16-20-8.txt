@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Sat Dec 05 2020 16:20:08 GMT+0530 (India Standard Time)
+------------------------------------------------------
+
+Modified files:
+* 31201_sdl_04/AdmissionPortalGUI/src/connection/ConnectionClass.java
+
+
+Created files:
+* .autogit/logs/log-5-11-2020-14-49-30.txt
+
+
+Deleted files:
+
+
+Renamed files:
